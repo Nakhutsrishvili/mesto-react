@@ -1,26 +1,31 @@
-import editImage from '../../images/EditButton.svg'
-import addImage from '../../images/Vector.png'
+import editImage from "../../images/EditButton.svg";
+import addImage from "../../images/Vector.png";
 import { useEffect, useState } from "react";
-import api from '../../utils/api';
-import Card from '../Card/Card';
+import api from "../../utils/api";
+import Card from "../Card/Card";
 
-export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) {
-
-  const [userAvatar, setUserAvatar] = useState('')
-  const [userName, setUserName] = useState('')
-  const [userDescription, setUserDescription] = useState('')
-  const [userCards, setUserCards] = useState([])
+export default function Main({
+  onEditProfile,
+  onEditAvatar,
+  onAddPlace,
+  onCardClick,
+}) {
+  const [userAvatar, setUserAvatar] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userCards, setUserCards] = useState([]);
 
   useEffect(() => {
     Promise.all([api.getInfo(), api.getCards()])
       .then(([dataUser, dataCard]) => {
-        setUserName(dataUser.name)
-        setUserDescription(dataUser.about)
-        setUserAvatar(dataUser.avatar)
-        dataCard.forEach(element => element.myid = dataUser._id);
+        setUserName(dataUser.name);
+        setUserDescription(dataUser.about);
+        setUserAvatar(dataUser.avatar);
+        dataCard.forEach((element) => (element.myid = dataUser._id));
         setUserCards(dataCard);
       })
-  }, [])
+      .catch((error) => console.error(`Ошибка при загрузке страницы ${error}`));
+  }, []);
   return (
     <main className="content">
       <div className="profile">
@@ -56,22 +61,18 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
           className="profile__add-button"
           onClick={onAddPlace}
         >
-          <img
-            src={addImage}
-            alt="Рисунок"
-            className="profile__add-image"
-          />
+          <img src={addImage} alt="Рисунок" className="profile__add-image" />
         </button>
       </div>
       <section className="elements">
-        {userCards.map(data => {
+        {userCards.map((data) => {
           return (
             <ul className="elements__lists" key={data._id}>
               <Card card={data} onCardClick={onCardClick} />
             </ul>
-          )
+          );
         })}
       </section>
     </main>
-  )
+  );
 }

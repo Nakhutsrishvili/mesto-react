@@ -6,39 +6,37 @@ import ImagePopup from "./ImagePopup/ImagePopup.jsx";
 import { useState } from "react";
 
 function App() {
-
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
-  const [isChooseCard, setIsChooseCard] = useState({}) // принимаем объект при клике по карточке 
-  const [isImagePopup, setIsImagePopup] = useState(false) // отвечает за активацию анимации
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({}); // принимаем объект при клике по карточке
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false); // отвечает за активацию анимации
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true)
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true)
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true)
+    setIsAddPlacePopupOpen(true);
   }
 
   function handleCard(card) {
-    setIsChooseCard(card)
-    setIsImagePopup(true)
+    setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   function closePopups() {
-    setIsEditAvatarPopupOpen(false)
-    setIsEditProfilePopupOpen(false)
-    setIsAddPlacePopupOpen(false)
-    setIsImagePopup(false)
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
   }
   return (
     <div className="page">
-
       <Header />
 
       <Main
@@ -52,8 +50,8 @@ function App() {
 
       <PopupWithForm
         // Здесь ниже указываем Props
-        name='avatar-update'
-        title='Обновить аватар'
+        name="avatar-update"
+        title="Обновить аватар"
         isOpen={isEditAvatarPopupOpen}
         onClose={closePopups}
       >
@@ -70,8 +68,8 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm
-        name='edit-profile'
-        title='Редактировать профиль'
+        name="edit-profile"
+        title="Редактировать профиль"
         isOpen={isEditProfilePopupOpen}
         onClose={closePopups}
       >
@@ -101,9 +99,9 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm
-        name='add-cards'
-        title='Новое место'
-        titleButton='Создать'
+        name="add-cards"
+        title="Новое место"
+        titleButton="Создать"
         isOpen={isAddPlacePopupOpen}
         onClose={closePopups}
       >
@@ -131,14 +129,14 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm
-        name='delete-card-confirm'
-        title='Вы уверены?'
-        titleButton='Да'
+        name="delete-card-confirm"
+        title="Вы уверены?"
+        titleButton="Да"
       />
 
       <ImagePopup
-        card={isChooseCard}
-        isOpen={isImagePopup}
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
         onClose={closePopups}
       />
     </div>

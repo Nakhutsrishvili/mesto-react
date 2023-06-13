@@ -17,6 +17,7 @@
 @import url(./blocks/profile/__add-image/profile__add-image.css);
 @import url(./blocks/profile/__edit-image/profile__edit-image.css);
 @import url(./blocks/elements/elements.css);
+@import url(./blocks/elements/__lists/elements__lists.css);
 @import url(./blocks/element/element.css);
 @import url(./blocks/element/__group-delete/element__group-delete.css);
 @import url(./blocks/element/__group-delete/_inactive/element__group-delete_inactive.css);

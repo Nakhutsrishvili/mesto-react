@@ -1,0 +1,23 @@
+.form__error{
+  font-family: 'Inter','Arial', sans-serif;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 15px;
+  padding: 0;
+  box-sizing: border-box;
+  visibility: hidden;
+  color:#FF0000;
+  text-align: left;
+  height: 27px;
+  transform: translate(0px, 2px);
+  margin-bottom: 5px;
+}
+
+/* 620 */
+@media screen and (max-width: 620px) {
+  .form__error {
+    transform:none;
+    display: inline-table;
+    max-height: 40px;
+  }
+}

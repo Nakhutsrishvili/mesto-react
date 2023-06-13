@@ -1,0 +1,11 @@
+.popup__container-image{
+  position: relative;
+  max-width: 75vw;
+  max-height: 75vh;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  cursor: auto;
+ }

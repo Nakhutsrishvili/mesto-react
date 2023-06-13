@@ -1,0 +1,26 @@
+.profile__name{
+  max-width: 336px;
+  margin: 0;
+  padding: 0px 18px 0px 0px;
+  font-family: 'Inter','Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* 991 */
+@media screen and (max-width: 991px) {
+  .profile__name {
+    max-width: 189px;
+    width: 100%;
+    font-size: 27px;
+    line-height: 33px;
+    text-align: center;
+    padding: 0px 10px 0px 0px;
+
+  }
+}

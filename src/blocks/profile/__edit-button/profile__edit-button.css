@@ -1,0 +1,20 @@
+.profile__edit-button{
+  background-color: #000000;
+  padding: 0;
+  padding-top: 15px;
+  border: none;
+  cursor: pointer;
+  transition: opacity;
+}
+
+.profile__edit-button:hover{
+  opacity: 0.6;
+  transition: opacity 1s;
+}
+
+/* 991 */
+@media screen and (max-width: 991px) {
+  .profile__edit-button {
+    padding-top: 8px;
+  }
+}

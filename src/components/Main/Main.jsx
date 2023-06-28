@@ -1,31 +1,21 @@
 import editImage from "../../images/EditButton.svg";
 import addImage from "../../images/Vector.png";
-import { useEffect, useState } from "react";
-import api from "../../utils/api";
+import { useContext } from "react";
 import Card from "../Card/Card";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import Spinner from "../Spinner/Spinner.jsx";
 
 export default function Main({
   onEditProfile,
   onEditAvatar,
   onAddPlace,
   onCardClick,
+  onDelete,
+  userCards,
+  isLoading,
 }) {
-  const [userAvatar, setUserAvatar] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userCards, setUserCards] = useState([]);
+  const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    Promise.all([api.getInfo(), api.getCards()])
-      .then(([dataUser, dataCard]) => {
-        setUserName(dataUser.name);
-        setUserDescription(dataUser.about);
-        setUserAvatar(dataUser.avatar);
-        dataCard.forEach((element) => (element.myid = dataUser._id));
-        setUserCards(dataCard);
-      })
-      .catch((error) => console.error(`Ошибка при загрузке страницы ${error}`));
-  }, []);
   return (
     <main className="content">
       <div className="profile">
@@ -35,11 +25,18 @@ export default function Main({
           className="profile__avatar-edit-button"
           onClick={onEditAvatar}
         >
-          <img src={userAvatar} alt="Картинка" className="profile__avatar" />
+          <img
+            src={currentUser.avatar ? currentUser.avatar : "#"}
+            alt="Картинка"
+            className="profile__avatar"
+          />
         </button>
         <div className="profile__info">
           <div className="profile__container">
-            <h1 className="profile__name"> {userName}</h1>
+            <h1 className="profile__name">
+              {" "}
+              {currentUser.name ? currentUser.name : ""}
+            </h1>
             <button
               aria-label="Редактировать"
               type="button"
@@ -53,7 +50,9 @@ export default function Main({
               />
             </button>
           </div>
-          <p className="profile__about">{userDescription}</p>
+          <p className="profile__about">
+            {currentUser.about ? currentUser.about : ""}
+          </p>
         </div>
         <button
           aria-label="Добавить"
@@ -65,13 +64,21 @@ export default function Main({
         </button>
       </div>
       <section className="elements">
-        {userCards.map((data) => {
-          return (
-            <ul className="elements__lists" key={data._id}>
-              <Card card={data} onCardClick={onCardClick} />
-            </ul>
-          );
-        })}
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          userCards.map((data) => {
+            return (
+              <ul className="elements__lists" key={data._id}>
+                <Card
+                  card={data}
+                  onCardClick={onCardClick}
+                  onDelete={onDelete}
+                />
+              </ul>
+            );
+          })
+        )}
       </section>
     </main>
   );

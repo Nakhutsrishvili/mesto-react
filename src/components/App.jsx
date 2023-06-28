@@ -92,7 +92,8 @@ function App() {
         setUserCards(dataCard);
         setIsLoading(false);
       })
-      .catch((error) => console.error(`Ошибка при загрузке страницы ${error}`));
+      .catch((error) => console.error(`Ошибка при загрузке страницы ${error}`))
+      .finally(() => setIsLoading(false))
   }, []);
 
   function handleDeleteSubmit(evt) {
